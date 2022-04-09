@@ -1,0 +1,21 @@
+galaxy_info:
+  author: coaxial
+  namespace: coaxial
+  description: Role description
+  # search and replace role name:
+  # `find . -type f -not -path './.git/*' -exec sed -i 's/myrole/actual-role-name/g' {} +`
+  role_name: myrole
+
+  license: MIT
+
+  min_ansible_version: 5.6.0
+
+  platforms:
+    - name: ubuntu
+      versions:
+        - focal
+        - bionic
+
+  galaxy_tags: []
+
+dependencies: []

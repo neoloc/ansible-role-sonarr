@@ -1,0 +1,4 @@
+---
+- name: Molecule Hello World!
+  ansible.builtin.debug:
+    msg: Hello, World!
