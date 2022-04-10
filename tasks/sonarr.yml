@@ -1,0 +1,45 @@
+---
+- name: Install gpg
+  ansible.builtin.package:
+    name: gpg
+    state: present
+
+- name: Add Mono repository apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+
+- name: Add Mono repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://download.mono-project.com/repo/ubuntu stable-{{ ansible_distribution_release }} main"
+    state: present
+    filename: mono-official-stable.list
+
+- name: Add MediaArea repository apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: C5CDF62C7AE05CC847657390C10E11090EC0E438
+
+- name: Add MediaArea repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://mediaarea.net/repo/deb/ubuntu {{ ansible_distribution_release }} main"
+    state: present
+    filename: mediaarea.list
+
+- name: Add Sonarr repository apt key
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 2009837CBFFD68F45BC180471F4F90DE2A9B4BF8
+
+- name: Add Sonarr repository
+  ansible.builtin.apt_repository:
+    repo: "deb https://apt.sonarr.tv/ubuntu {{ ansible_distribution_release }} main"
+    state: present
+    filename: sonarr.list
+
+- name: Install Sonarr
+  ansible.builtin.package:
+    name: sonarr
+    state: present
+  notify:
+    - Start Sonarr
