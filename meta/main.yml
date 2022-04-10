@@ -1,7 +1,7 @@
 galaxy_info:
   author: coaxial
   namespace: coaxial
-  description: Role description
+  description: Install and configure Sonarr and optionally nginx
   role_name: sonarr
 
   license: MIT
