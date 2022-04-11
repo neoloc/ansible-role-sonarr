@@ -27,7 +27,7 @@
   notify:
     - Restart NGINX
 
-- name: Configure Sonarr for NGINX
+- name: Configure NGINX for Sonarr
   ansible.builtin.copy:
     src: "{{ item.file }}"
     dest: "{{ item.dest }}"

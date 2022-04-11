@@ -4,6 +4,11 @@
 
 Galaxy: https://galaxy.ansible.com/coaxial/sonarr
 
+## Instructions
+
+This role will install Sonarr and (optionally) install and configure NGINX to
+server the UI at `<server address>/sonarr`.
+
 ## Variables and their defaults
 
 | variable name       | default value | description                                                                             |

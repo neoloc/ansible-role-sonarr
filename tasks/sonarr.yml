@@ -43,3 +43,33 @@
     state: present
   notify:
     - Start Sonarr
+
+- name: Check if Sonarr config file exists
+  ansible.builtin.stat:
+    path: /var/lib/sonarr/config.xml
+  register: soco
+
+- name: Configure UrlBase in Sonarr (existing config)
+  ansible.builtin.lineinfile:
+    path: "/var/lib/sonarr/config.xml"
+    regexp: "^  <UrlBase>.*</UrlBase>"
+    line: "  <UrlBase>/sonarr</UrlBase>"
+  when: soco.stat.exists
+
+- name: Create Sonarr datadir
+  ansible.builtin.file:
+    path: /var/lib/sonarr
+    state: directory
+    mode: "0755"
+    owner: "sonarr"
+    group: "sonarr"
+  when: not soco.stat.exists
+
+- name: Configure UrlBase in Sonarr (no config file)
+  ansible.builtin.copy:
+    src: sonarr-config.xml
+    dest: /var/lib/sonarr/config.xml
+    mode: "0644"
+    owner: sonarr
+    group: sonarr
+  when: not soco.stat.exists

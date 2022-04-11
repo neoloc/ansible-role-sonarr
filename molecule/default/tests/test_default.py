@@ -19,6 +19,12 @@ def test_sonarr_http(host):
     assert 'Sonarr' in html
 
 
+def test_sonarr_base_url(host):
+    html = host.run('curl http://localhost/sonarr').stdout
+
+    assert '/sonarr/favicon.ico' in html
+
+
 def test_firewall(host):
     i = host.iptables
 
