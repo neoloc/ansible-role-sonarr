@@ -16,4 +16,4 @@ galaxy_info:
 
   galaxy_tags: [servarr, sonarr]
 
-dependencies: []
+dependencies: [nginxinc.nginx]
