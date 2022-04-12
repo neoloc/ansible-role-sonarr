@@ -1,4 +1,19 @@
 ---
+- name: Populate service facts
+  ansible.builtin.service_facts:
+
+- name: Stop Sonarr
+  ansible.builtin.systemd:
+    name: sonarr
+    state: stopped
+  notify:
+    - Start Sonarr
+  when: '"sonarr.service" in services'
+  tags:
+    # this will always stop/start radarr, because we don't want to potentially
+    # install a new version or update the config file below while it's running.
+    - molecule-idempotence-notest
+
 - name: Install gpg
   ansible.builtin.package:
     name: gpg
