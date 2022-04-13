@@ -1,4 +1,5 @@
 import os
+import re
 
 import testinfra.utils.ansible_runner
 
@@ -23,6 +24,16 @@ def test_sonarr_base_url(host):
     html = host.run('curl http://localhost/sonarr').stdout
 
     assert '/sonarr/favicon.ico' in html
+
+
+def test_sonarr_config_file(host):
+    f = host.file('/var/lib/sonarr/config.xml')
+    c = re.compile(
+        r"<Config>.*<UrlBase>/sonarr</UrlBase>.*</Config>",
+        flags=re.DOTALL
+    )
+
+    assert re.match(c, f.content_string)
 
 
 def test_firewall(host):
@@ -50,3 +61,9 @@ def test_mediaarea_repo(host):
     f = host.file("/etc/apt/sources.list.d/mediaarea.list")
 
     f.exists
+
+
+def test_sonarr_group(host):
+    u = host.user('sonarr')
+
+    assert 'media' in u.groups

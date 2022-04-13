@@ -3,7 +3,7 @@
   ansible.builtin.service_facts:
 
 - name: Stop Sonarr
-  ansible.builtin.systemd:
+  ansible.builtin.service:
     name: sonarr
     state: stopped
   notify:
@@ -59,6 +59,28 @@
   notify:
     - Start Sonarr
 
+- name: Create media group
+  ansible.builtin.group:
+    name: media
+    state: present
+
+- name: Add sonarr user to group media
+  ansible.builtin.user:
+    name: sonarr
+    groups: media
+    state: present
+
+- name: Stop Sonarr before touching config file
+  ansible.builtin.service:
+    name: sonarr
+    state: stopped
+  notify:
+    - Start Sonarr
+  tags:
+    # this will always stop/start radarr, because we don't want to potentially
+    # install a new version or update the config file below while it's running.
+    - molecule-idempotence-notest
+
 - name: Check if Sonarr config file exists
   ansible.builtin.stat:
     path: /var/lib/sonarr/config.xml
@@ -69,6 +91,7 @@
     path: "/var/lib/sonarr/config.xml"
     regexp: "^  <UrlBase>.*</UrlBase>"
     line: "  <UrlBase>/sonarr</UrlBase>"
+    insertbefore: "</Config>"
   when: soco.stat.exists
 
 - name: Create Sonarr datadir
