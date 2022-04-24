@@ -63,6 +63,7 @@
   ansible.builtin.group:
     name: media
     state: present
+    gid: "{{ sonarr__media_group_id }}"
 
 - name: Add sonarr user to group media
   ansible.builtin.user:

@@ -67,3 +67,9 @@ def test_sonarr_group(host):
     u = host.user('sonarr')
 
     assert 'media' in u.groups
+
+
+def test_media_gid(host):
+    g = host.group('media')
+
+    assert g.gid == 1100

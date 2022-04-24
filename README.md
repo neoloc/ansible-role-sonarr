@@ -11,6 +11,7 @@ server the UI at `<server address>/sonarr`.
 
 ## Variables and their defaults
 
-| variable name       | default value | description                                                                             |
-| ------------------- | ------------- | --------------------------------------------------------------------------------------- |
-| sonarr\_\_use_nginx | `yes`         | Whether to install and configure nginx (`no` if you're installing/managing it yourself) |
+| variable name            | default value | description                                                                             |
+| ------------------------ | ------------- | --------------------------------------------------------------------------------------- |
+| sonarr\_\_use_nginx      | `yes`         | Whether to install and configure nginx (`no` if you're installing/managing it yourself) |
+| sonarr\_\_media_group_id | `1100`        | Group ID for the `media` group                                                          |

@@ -1,2 +1,3 @@
 ---
 sonarr__use_nginx: yes
+sonarr__media_group_id: 1100
