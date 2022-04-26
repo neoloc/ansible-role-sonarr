@@ -1,7 +1,7 @@
 galaxy_info:
-  author: coaxial
-  namespace: coaxial
-  description: Install and configure Sonarr and optionally nginx
+  author: neoloc
+  namespace: neoloc
+  description: Install and configure Sonarr
   role_name: sonarr
 
   license: MIT
@@ -9,11 +9,9 @@ galaxy_info:
   min_ansible_version: 5.6.0
 
   platforms:
-    - name: ubuntu
+    - name: debian
       versions:
-        - focal
-        - bionic
+        - buster
+        - bullseye
 
-  galaxy_tags: [servarr, sonarr]
-
-dependencies: [nginxinc.nginx]
+  galaxy_tags: [sonarr]

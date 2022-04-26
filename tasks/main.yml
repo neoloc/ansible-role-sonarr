@@ -1,13 +1,15 @@
 ---
-- name: Refresh apt cache
-  ansible.builtin.apt:
-    update_cache: true
-    cache_valid_time: 216000 # seconds; i.e. 1 day
+- name: Sonarr Install
+  when: sonarr_configure == true
+  tags:
+    - sonarr
+  block:
+    - name: Refresh apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 216000 # seconds; i.e. 1 day
 
-- name: Gather facts # to determine distribution etc.
-  ansible.builtin.setup:
+    - name: Gather facts # to determine distribution etc.
+      ansible.builtin.setup:
 
-- include_tasks: nginx.yml
-  when: sonarr__use_nginx
-- include_tasks: firewall.yml
-- include_tasks: sonarr.yml
+    - include_tasks: sonarr.yml
